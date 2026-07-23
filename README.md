@@ -1,8 +1,8 @@
-# CaveX - X Bookmark Manager (Version 1.0)
+# caveX - X Bookmark Manager (Version 1.0)
 
 ## Overview
 
-CaveX is a Java console-based bookmark management application inspired by the bookmark feature on X (formerly Twitter). It allows users to store, organize, search, update, and manage useful links in a structured way.
+caveX is a Java console-based bookmark management application inspired by the bookmark feature on X (formerly Twitter). It allows users to store, organize, search, update, and manage useful links in a structured way.
 
 This project was built to strengthen backend fundamentals by applying Object-Oriented Programming, Java Collections, JDBC, and PostgreSQL in a real-world CRUD application.
 
