@@ -10,6 +10,9 @@ public class BookmarksDAO {
     private final String retrive="select link_id, title, link, category,notes, date_created from bookmarks";
     private final String addBookmark="insert into bookmarks(title, link, category, notes) values(?,?,?,?);";
     private final String removeBookmark="DELETE FROM bookmarks WHERE LOWER(title) = LOWER(?);";
+    private final String searchBookmarks="select link_id, title, link, category,notes, date_created from bookmarks " +
+            "WHERE LOWER(title) = LOWER(?)";
+
     public BookmarksDAO(Connection connection) {
         this.connection=connection;
     }
@@ -47,8 +50,13 @@ public class BookmarksDAO {
 
     public void displayBookmarks(){
         try{
-            PreparedStatement ps = connection.prepareStatement(retrive);
-            ResultSet rs= ps.executeQuery();
+            ResultSet rs= null;
+            try {
+                PreparedStatement ps = connection.prepareStatement(retrive);
+                rs = ps.executeQuery();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             while (rs.next()){
                 System.out.println(rs.getInt("link_id") + " " +
                         rs.getString("title") + " " +
@@ -60,4 +68,31 @@ public class BookmarksDAO {
             e.printStackTrace();
         }
     }
-}
+
+    public void searchBookmark(String title){
+        try{
+            ResultSet rs= null;
+            try {
+                PreparedStatement ps = connection.prepareStatement(searchBookmarks);
+                ps.setString(1,title.trim());
+                rs = ps.executeQuery();
+            } catch (SQLException e) {
+                connection.close();
+                throw new RuntimeException(e);
+            }
+            boolean found = false;
+            while (rs.next()){
+                found=true;
+                System.out.println(rs.getInt("link_id") + " " +
+                        rs.getString("title") + " " +
+                        rs.getString("category") + " " +
+                        rs.getString("notes") + " " +
+                        rs.getTimestamp("date_created"));
+            }if (!found) {
+                System.out.println("No bookmark found.");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        }
+    }

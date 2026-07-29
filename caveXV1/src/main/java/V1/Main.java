@@ -3,6 +3,7 @@ package V1;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -29,6 +30,7 @@ public class Main {
             System.out.println("Enter 1 to add a link");
             System.out.println("Enter 2 to delete link");
             System.out.println("Enter 3 to view all links");
+            System.out.println("Enter 4 to search for a link");
             System.out.println("Enter 0 to exit");
             int n=sc.nextInt();
             sc.nextLine();
@@ -63,6 +65,10 @@ public class Main {
                 case 3:
                     bookmarksDAO.displayBookmarks();
                     break;
+
+                case 4:
+                    System.out.println("Enter the title to search");
+                    bookmarksDAO.searchBookmark(sc.nextLine());
 
                 case 0:
                     continues = false;
