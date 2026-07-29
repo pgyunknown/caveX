@@ -15,7 +15,7 @@ public class Bookmarks {
         if (Utilities.isNull(title)) {
             throw new IllegalArgumentException("cannot be null or empty");
         }
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getLink() {
